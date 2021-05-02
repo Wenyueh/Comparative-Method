@@ -11,6 +11,7 @@ num_iterations = 1000
 
 
 def Jacobi(num_iterations, A, b, x):
+    dists = []
     k = 0
     n = A.shape[0]
     xnew = x.copy()
@@ -22,15 +23,19 @@ def Jacobi(num_iterations, A, b, x):
                     a = a - A[i, j] * x[j]
             xnew[i] = (1 / A[i, i]) * (b[i] + a)
         k += 1
-        improvement = abs(xnew - x)
-        print(improvement)
+        dist = np.linalg.norm(x - xnew)
+        dists.append(dist)
         x = xnew.copy()
         xnew = x.copy()
 
-    return xnew
+    y_axis = dists
+    x_axis = list(range(num_iterations))
+
+    return xnew, x_axis, y_axis
 
 
 def GS(num_iterations, A, b, x):
+    dists = []
     k = 0
     n = A.shape[0]
     xnew = x.copy()
@@ -40,16 +45,20 @@ def GS(num_iterations, A, b, x):
             s2 = np.dot(A[i, i + 1 :], xnew[i + 1 :])
             xnew[i] = (1 / A[i, i]) * (b[i] - s1 - s2)
         k += 1
-        improvement = abs(xnew - x)
-        print(improvement)
+        dist = np.linalg.norm(x - xnew)
+        dists.append(dist)
         x = xnew.copy()
         xnew = x.copy()
 
-    return xnew
+    y_axis = dists
+    x_axis = list(range(num_iterations))
+
+    return xnew, x_axis, y_axis
 
 
 # w: relaxation parameter
 def SOR(num_iterations, A, b, x, w):
+    dists = []
     k = 0
     n = A.shape[0]
     xnew = x.copy()
@@ -59,12 +68,15 @@ def SOR(num_iterations, A, b, x, w):
             s2 = np.dot(A[i, i + 1 :], xnew[i + 1 :])
             xnew[i] = (1 - w) * x[i] + w * (1 / A[i, i]) * (b[i] - s1 - s2)
         k += 1
-        improvement = abs(xnew - x)
-        print(improvement)
+        dist = np.linalg.norm(x - xnew)
+        dists.append(dist)
         x = xnew.copy()
         xnew = x.copy()
 
-    return xnew
+    y_axis = dists
+    x_axis = list(range(num_iterations))
+
+    return xnew, x_axis, y_axis
 
 
 def plot_three_methods(matrix_type, num_iterations, A, b, x, w):
