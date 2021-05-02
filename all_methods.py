@@ -1,4 +1,5 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
 # Input:
 # x: initial guess to the solution
@@ -66,14 +67,27 @@ def SOR(num_iterations, A, b, x, w):
     return xnew
 
 
+def plot_three_methods(matrix_type, num_iterations, A, b, x, w):
+    jxnew, jx_axis, jy_axis = Jacobi(num_iterations, A, b, x)
+    gxnew, gx_axis, gy_axis = GS(num_iterations, A, b, x)
+    sxnew, sx_axis, sy_axis = SOR(num_iterations, A, b, x, w)
+
+    plt.plot(
+        jx_axis, jy_axis, "bo--", gx_axis, gy_axis, "ro--", sx_axis, sy_axis, "go--"
+    )
+    plt.savefig("{}.png".format(matrix_type), dpi=300)
+
+
+
 if __name__ == "__main__":
     A = np.array([[10, -3, 2, 0], [-1, 11, -1, 3], [2, -1.5, 13, -1], [0, 3, -1, 8]])
     b = np.array([6, 25, -11, 10])
     x = np.random.rand(4, 1)
-    w = 1
-
+    w = 1.5
     num_iterations = 10
+    
+    matrix_type = 'random'
 
-    output = SOR(num_iterations, A, b, x, w)
+    plot_three_methods(matrix_type, num_iterations, A, b, x, w)
 
     print(output)
