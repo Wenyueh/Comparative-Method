@@ -84,6 +84,7 @@ def plot_three_methods(matrix_type, num_iterations, A, b, x, w):
     gxnew, gx_axis, gy_axis = GS(num_iterations, A, b, x)
     sxnew, sx_axis, sy_axis = SOR(num_iterations, A, b, x, w)
 
+    plt.yscale('log')
     plt.plot(
         jx_axis, jy_axis, "bo--", gx_axis, gy_axis, "ro--", sx_axis, sy_axis, "go--"
     )
