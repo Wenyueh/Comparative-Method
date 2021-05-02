@@ -54,7 +54,6 @@ def SOR(num_iterations, A, b, x, w):
     xnew = x.copy()
     while k < num_iterations:
         for i in range(n):
-            for i in range(n):
             s1 = np.dot(A[i, :i], xnew[:i])
             s2 = np.dot(A[i, i + 1 :], xnew[i + 1 :])
             xnew[i] = (1 - w) * x[i] + w * (1 / A[i, i]) * (b[i] - s1 - s2)
