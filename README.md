@@ -1,4 +1,4 @@
-# Three Comparative-Method
+# Three Iterative Methods on Linear System
 
 Jacobi Method
 
