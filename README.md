@@ -25,4 +25,7 @@ To generate convergence graphs of all methods with matrix type "random" with siz
 
 python all_methods.py --mtype random --size 100
 
-The graph will be save as random_100.png.
+The graph will be save as random_100.png
+
+
+The relevant matrices and their convergence graphs will be uploaded later.
