@@ -1,13 +1,17 @@
-import numpy as np
+import argparse
+
 import matplotlib.pyplot as plt
+import numpy as np
+
+from generate_matrix import (band_diagonal, diagonal, diagonal_dominant,
+                             rand_tridiagonal, symmetric_definite,
+                             symmetric_indefinite)
 
 # Input:
 # x: initial guess to the solution
 # A: A, diagonal dominant
 # b: right-hand side vector
 # convergence criterion, here I'm just setting the number of iterations, but we can definitely set a error bound
-
-num_iterations = 1000
 
 
 def Jacobi(num_iterations, A, b, x):
@@ -79,28 +83,40 @@ def SOR(num_iterations, A, b, x, w):
     return xnew, x_axis, y_axis
 
 
-def plot_three_methods(matrix_type, num_iterations, A, b, x, w):
+def plot_three_methods(args, num_iterations, A, b, x, w):
     jxnew, jx_axis, jy_axis = Jacobi(num_iterations, A, b, x)
     gxnew, gx_axis, gy_axis = GS(num_iterations, A, b, x)
     sxnew, sx_axis, sy_axis = SOR(num_iterations, A, b, x, w)
 
-    plt.yscale('log')
-    plt.plot(
-        jx_axis, jy_axis, "bo--", gx_axis, gy_axis, "ro--", sx_axis, sy_axis, "go--"
-    )
-    plt.savefig("{}.png".format(matrix_type), dpi=300)
-
+    plt.yscale("log") # this is optional
+    plt.plot(jx_axis, jy_axis, "b-", gx_axis, gy_axis, "r-", sx_axis, sy_axis, "g-")
+    plt.savefig("{}_{}.png".format(args.mtype, args.size), dpi=300)
 
 
 if __name__ == "__main__":
-    A = np.array([[10, -3, 2, 0], [-1, 11, -1, 3], [2, -1.5, 13, -1], [0, 3, -1, 8]])
-    b = np.array([6, 25, -11, 10])
-    x = np.random.rand(4, 1)
-    w = 1.5
-    num_iterations = 10
-    
-    matrix_type = 'random'
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--mtype", type=str, default="diagonal_dominant")
+    parser.add_argument("--size", type=int, default=100)
+    parser.add_argument("--w", type=float, default=0.9)
+    parser.add_argument("--num_iterations", type=int, default=10)
+    args = parser.parse_args()
 
-    plot_three_methods(matrix_type, num_iterations, A, b, x, w)
+    if args.mtype == "random":
+        A = np.random.randint(1, 10, size=(args.size, args.size))
+    if args.mtype == "band_diagonal":
+        A = band_diagonal(args.size)
+    if args.mtype == "diagonal":
+        # A = rand_tridiagonal(args.size)
+        A = diagonal(args.size)
+    if args.mtype == "symmetric_definite":
+        A = symmetric_definite(args.size)
+    if args.mtype == "symmetric_indefinite":
+        A = symmetric_indefinite(args.size)
+    if args.mtype == "diagonal_dominant":
+        A = diagonal_dominant(args.size)
 
-    print(output)
+    b = np.random.randint(-10, 10, size=(A.shape[0], 1))
+    x = np.random.rand(A.shape[0], 1)
+
+    plot_three_methods(args, args.num_iterations, A, b, x, args.w)
+
