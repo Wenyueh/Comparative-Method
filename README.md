@@ -1,4 +1,4 @@
-# Three Iterative Methods on Linear System
+# Three Iterative Methods on Linear Systems
 
 Jacobi Method
 
