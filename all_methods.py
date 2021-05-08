@@ -95,7 +95,7 @@ def plot_three_methods(args, num_iterations, A, b, x, w):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--mtype", type=str, default="diagonal_dominant")
+    parser.add_argument("--mtype", type=str, default="rand_q")
     parser.add_argument("--size", type=int, default=100)
     parser.add_argument("--w", type=float, default=0.9)
     parser.add_argument("--num_iterations", type=int, default=10)
@@ -114,6 +114,10 @@ if __name__ == "__main__":
         A = symmetric_indefinite(args.size)
     if args.mtype == "diagonal_dominant":
         A = diagonal_dominant(args.size)
+    if args.mtype == 'rand_z':
+        A = rand_z(args.size)
+    if args.mtype == 'rand_q':
+        A = rand_q(args.size)
 
     b = np.random.randint(-10, 10, size=(A.shape[0], 1))
     x = np.random.rand(A.shape[0], 1)
