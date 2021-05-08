@@ -99,9 +99,9 @@ def rand_z(size):
     h = 0
 
     diagonal = np.random.rand(size)
-    diagonalAbove = np.random.rand(size - 1)
+    diagonalAbove = np.random.rand(size2)
     diagonalAbove = diagonalAbove * -1
-    diagonalBelow = np.random.rand(size - 1)
+    diagonalBelow = np.random.rand(size2)
     diagonalBelow = diagonalBelow * -1
 
     matrix = np.zeros((size, size))
@@ -123,10 +123,9 @@ def rand_q(size):
     size2 = int((size*(size-1))/2)
     h = 0
 
-    diagonal = np.random.rand(size)
-    diagonalAbove = np.random.rand(size - 1)
+    diagonalAbove = np.random.rand(size2)
     diagonalAbove = diagonalAbove * -1
-    diagonalBelow = np.random.rand(size - 1)
+    diagonalBelow = np.random.rand(size2)
     diagonalBelow = diagonalBelow * -1
 
     matrix = np.zeros((size, size))
