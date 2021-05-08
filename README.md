@@ -6,7 +6,7 @@ Gauss-Seidel Method
 
 Successive over Relaxation Method
 
-# Six Type of Matrices
+# Eight Type of Matrices
 
 random matrix
 
@@ -19,6 +19,10 @@ symmetric definite
 symmetric indefinite
 
 diagonal dominant matrix
+
+z-matrix
+
+q-matrix
 
 # Code
 To generate convergence graphs of all methods with matrix type "random" with size 100 for example:

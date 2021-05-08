@@ -91,3 +91,56 @@ def diagonal_dominant(size):
         matrix = mmread("nos6.mtx").toarray()
 
     return matrix
+
+
+def rand_z(size):
+    
+    size2 = int((size*(size-1))/2)
+    h = 0
+
+    diagonal = np.random.rand(size)
+    diagonalAbove = np.random.rand(size - 1)
+    diagonalAbove = diagonalAbove * -1
+    diagonalBelow = np.random.rand(size - 1)
+    diagonalBelow = diagonalBelow * -1
+
+    matrix = np.zeros((size, size))
+
+    for k in range(size - 1):
+        matrix[k][k] = diagonal[k]
+        for i in range(size - k - 1):
+            matrix[k][k + i + 1] = diagonalAbove[h]
+            matrix[k + i + 1][k] = diagonalBelow[h]
+            h = h + 1
+
+    matrix[size - 1][size - 1] = diagonal[size - 1]
+
+    return matrix
+
+
+def rand_q(size):
+
+    size2 = int((size*(size-1))/2)
+    h = 0
+
+    diagonal = np.random.rand(size)
+    diagonalAbove = np.random.rand(size - 1)
+    diagonalAbove = diagonalAbove * -1
+    diagonalBelow = np.random.rand(size - 1)
+    diagonalBelow = diagonalBelow * -1
+
+    matrix = np.zeros((size, size))
+
+    for k in range(size - 1):
+        for i in range(size - k - 1):
+            matrix[k][k + i + 1] = diagonalAbove[h]
+            matrix[k + i + 1][k] = diagonalBelow[h]
+            h = h + 1
+
+    for l in range(size):
+        sum = 0
+        for m in range(size):
+            sum = matrix[m][l] + sum
+        matrix[l][l] = -1 * sum
+
+    return matrix

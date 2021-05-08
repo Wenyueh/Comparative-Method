@@ -5,7 +5,7 @@ import numpy as np
 
 from generate_matrix import (band_diagonal, diagonal, diagonal_dominant,
                              rand_tridiagonal, symmetric_definite,
-                             symmetric_indefinite)
+                             symmetric_indefinite, rand_z, rand_q)
 
 # Input:
 # x: initial guess to the solution
