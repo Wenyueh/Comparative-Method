@@ -95,7 +95,7 @@ def plot_three_methods(args, num_iterations, A, b, x, w):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--mtype", type=str, default="rand_q")
+    parser.add_argument("--mtype", type=str, default="random")
     parser.add_argument("--size", type=int, default=100)
     parser.add_argument("--w", type=float, default=0.9)
     parser.add_argument("--num_iterations", type=int, default=10)
